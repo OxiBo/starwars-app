@@ -1,0 +1,16 @@
+.footer {
+  background-color: $color-black;
+  color: $color-primary;
+  display: flex;
+  justify-content: center;
+  &__container {
+    display: flex;
+    align-items: center;
+    height: 6rem;
+    padding: 1rem;
+    p {
+      font-size: 1.2rem;
+      letter-spacing: 0.7px;
+    }
+  }
+}

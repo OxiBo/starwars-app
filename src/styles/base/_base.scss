@@ -1,0 +1,44 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 62.25%; // 1rem = 10px, 10px / 16px  = 62.25% (16px is browser default font size
+
+  @include respond(phone) {
+    font-size: 75%; // 1rem = 12px;
+  }
+  @include respond(tab-port) {
+    font-size: 87.5%; // 1rem = 14px;
+  }
+  @include respond(tab-land) {
+    font-size: 100%; // 1rem = 16px;
+  }
+  @include respond(big-desktop) {
+    font-size: 112.5%; // 1rem = 18px;
+  }
+}
+
+body {
+  box-sizing: border-box;
+  background-image: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+  font-size: $default-font-size;
+  // @include respond(tab-port) {
+  //   padding: 0;
+  // }
+  #root {
+    display: flex;
+    flex-direction: column;
+    color: $color-primary;
+  }
+}
+
+// ::selection {
+//   background-color: $color-primary;
+//   color: $color-white;
+// }

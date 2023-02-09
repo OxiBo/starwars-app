@@ -1,0 +1,97 @@
+.navbar {
+  background-color: $color-black;
+  color: $color-primary;
+  display: flex;
+  position: relative;
+  &__logo {
+    display: flex;
+    background-color: white;
+    padding: 0 2rem;
+
+    svg {
+      width: 6rem;
+      height: 6rem;
+    }
+  }
+  // TODO - try masks later
+  //   &__logo::before {
+  //     content: '';
+  //     display: inline-block;
+  //     width: 7rem;
+  //     height: 7rem;
+
+  //     //background-color: rgb(217, 84, 84);
+  //     // padding: 2rem;
+  //     // background-image: url(../images/star-wars.svg);
+  //     // -webkit-mask-image: url(../images/star-wars.svg);
+  //     // mask-image: url(../images/star-wars.svg);
+  //     background-color: rgb(217, 84, 84);
+  //     -webkit-mask-image: url(../images/star-wars.svg);
+  //     //mask-image: url(../images/star-wars.svg);
+  //     -webkit-mask-size: cover;
+  //   }
+
+  &__menu {
+    display: flex;
+    margin-left: auto;
+    padding: 0 2rem;
+    @include respond(phone) {
+      display: none;
+    }
+    &-button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      &-icon {
+        color: $color-primary;
+      }
+    }
+  }
+
+  &__list {
+    display: none;
+    margin-left: auto;
+    list-style: none;
+    justify-content: space-around;
+    align-items: center;
+    @include respond(phone) {
+      display: flex;
+    }
+    &-item {
+      display: flex;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      &-link:link,
+      &-link:visited,
+      &-link:active {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        height: 100%;
+        color: inherit;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 1rem;
+      }
+      .active {
+        background-color: #b7b3e4;
+      }
+    }
+    &-item:hover {
+      // TODO - add some other styling
+      background-color: #302b63;
+    }
+
+    &-open {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      background-color: $color-black;
+      top: 6.8rem;
+      right: 0;
+    }
+  }
+}
