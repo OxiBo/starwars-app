@@ -1,0 +1,15 @@
+.show-more {
+  &,
+  &:active,
+  &:focus {
+    border: none;
+    color: $color-primary;
+    background: none;
+    cursor: pointer;
+    outline: none;
+  }
+
+  &:hover {
+    letter-spacing: 1px;
+  }
+}
