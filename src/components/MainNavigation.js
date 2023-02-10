@@ -116,7 +116,7 @@ export default function MainNavigation() {
               `navbar__list-item-link ${isActive ? 'active' : undefined}`
             }
           >
-            Films
+            All Films
           </NavLink>
         </li>
       </ul>
