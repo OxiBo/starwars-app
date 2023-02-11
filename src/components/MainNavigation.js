@@ -101,22 +101,22 @@ export default function MainNavigation() {
         </li>
         <li onClick={handleMenuLinkClick} className="navbar__list-item">
           <NavLink
+            to="/films"
+            className={({ isActive }) =>
+              `navbar__list-item-link ${isActive ? 'active' : undefined}`
+            }
+          >
+            Films
+          </NavLink>
+        </li>{' '}
+        <li onClick={handleMenuLinkClick} className="navbar__list-item">
+          <NavLink
             to="/characters"
             className={({ isActive }) =>
               `navbar__list-item-link ${isActive ? 'active' : undefined}`
             }
           >
             Characters
-          </NavLink>
-        </li>
-        <li onClick={handleMenuLinkClick} className="navbar__list-item">
-          <NavLink
-            to="/films"
-            className={({ isActive }) =>
-              `navbar__list-item-link ${isActive ? 'active' : undefined}`
-            }
-          >
-            All Films
           </NavLink>
         </li>
       </ul>
