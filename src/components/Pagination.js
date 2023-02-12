@@ -6,9 +6,8 @@ import React, { useEffect, useState } from 'react';
 const Pagination = ({ perPage, total, onPageChange, currentPage }) => {
   const [page, setPage] = useState(currentPage);
   const pageCount = Math.ceil(total / perPage);
-  useEffect(() => {
-    console.log('pagination component', page);
-  });
+
+  // TODO - try calling onPageChange in useEffect instead of in the handle function
   const handlePrev = () => {
     setPage(page - 1);
     onPageChange(page - 1);

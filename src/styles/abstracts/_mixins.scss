@@ -43,3 +43,16 @@ ORDER: Base + typography > general layout + grid > page layout > components
     } //1800
   }
 }
+
+// TODO - make it work
+@mixin slideInFromSide {
+  &:not(:empty) {
+    opacity: 1;
+    transition: all 0.5s;
+  }
+  &:empty {
+    flex: 0;
+    opacity: 1;
+    transition: all 0.5s;
+  }
+}

@@ -1,0 +1,19 @@
+.characters {
+  background-color: rgba(222, 200, 200, 0.4);
+  &__list {
+    list-style: none;
+    &-item {
+      display: flex;
+      flex-direction: column;
+      &-details {
+        display: flex;
+        opacity: 1;
+        //  @include slideInFromSide;
+        .character {
+          background-color: mistyrose;
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

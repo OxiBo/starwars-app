@@ -3,8 +3,10 @@
   &:active,
   &:focus {
     border: none;
-    color: $color-primary;
+    color: $color-secondary-dark;
     background: none;
+    font-weight: bold;
+    font-size: 1.5rem;
     cursor: pointer;
     outline: none;
   }

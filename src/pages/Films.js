@@ -2,43 +2,20 @@ import { Suspense } from 'react';
 import { json, useRouteLoaderData, Await, defer, Link } from 'react-router-dom';
 import starwarsAPI from '../api/starwarsAPI';
 import Loader from '../components/Loader';
+import PageContent from '../components/PageContent';
+import FilmsContent from '../components/FilmsContent';
 
 export default function Films() {
   const { films } = useRouteLoaderData('films-loader');
 
-  const renderFilms = (films) => {
-    return films.map(({ title, director, release_date, url }, idx) => {
-      const filmId = url.match(/\d/)[0];
-
-      return (
-        <li key={idx}>
-          <Link to={`/films/${filmId}`}>
-            <h3>{title}</h3>
-          </Link>
-
-          <p>director: {director}</p>
-          <p>
-            release date:{' '}
-            {new Date(release_date)
-              .toDateString()
-              .split(' ')
-              .slice(1)
-              .join(' ')}
-          </p>
-        </li>
-      );
-    });
-  };
   return (
     <Suspense fallback={<Loader />}>
       <Await resolve={films}>
-        {(loadedFilms) => {
-          return (
-            <div>
-              <ul>{renderFilms(loadedFilms.results)}</ul>
-            </div>
-          );
-        }}
+        {(loadedFilms) => (
+          <PageContent title={'Star Wars Movies'}>
+            <FilmsContent films={loadedFilms.results} />
+          </PageContent>
+        )}
       </Await>
     </Suspense>
   );

@@ -1,3 +1,5 @@
+// TODO - show loading when people are loading
+
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -48,10 +50,12 @@ export default function FilmContent({ data, isLoading, error }) {
   }, [data, getPeopleInfo]);
 
   useEffect(() => {
-    mainContent.current.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
-    });
+    if (mainContent.current) {
+      mainContent.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
+    }
   }, [mainContent, data]);
 
   if (isLoading) return <Loader />;
@@ -61,10 +65,13 @@ export default function FilmContent({ data, isLoading, error }) {
 
   const renderPeople = (people, count) => {
     const peopleList = people.slice(0, count).map(({ name }, idx) => (
-      <li key={idx}>
-        <p>
-          name: <Link to={`/characters/${name}`}>{name}</Link>
-        </p>
+      <li key={idx} className="list-content-items-item">
+        <Link
+          to={`/characters/${name}`}
+          className="list-content-items-item-link"
+        >
+          {name},
+        </Link>
       </li>
     ));
     return peopleList;
@@ -75,34 +82,47 @@ export default function FilmContent({ data, isLoading, error }) {
     if (data && !peopleLoaded) {
       getPeopleInfo(data.characters.slice(initialPeopleCount));
     }
-
     setPeopleLoaded(true);
   };
   return (
     <PageContent title={title}>
       <div ref={mainContent}>
-        description: {opening_crawl}
-        director: {director}
-        people:{' '}
-        {peopleError ? (
-          'Failed to fetch characters info'
-        ) : (
-          <div>
-            <ul>
-              {renderPeople(
-                people,
-                showMore ? people.length : initialPeopleCount
-              )}
-            </ul>
+        <div className="content">
+          <p className="subtitle">Synopsis:</p>
+          <p className="description">{opening_crawl}</p>
+        </div>
+        <div className="content">
+          <p className="subtitle"> Director: </p>
+          <p className="description"> {director}</p>
+        </div>
 
-            <button className="show-more" onClick={handleShowMoreClick}>
-              {showMore ? 'Show less' : 'Show more'}
-            </button>
-          </div>
-        )}
-        <p>
-          year: {new Date(created).toDateString().split(' ').slice(1).join(' ')}
-        </p>
+        <div className="content">
+          <p className="subtitle"> People:</p>
+          {peopleError ? (
+            <p className="text-error">Failed to fetch characters info</p>
+          ) : (
+            <div className="description list-content">
+              <ul className="list-content-items">
+                {renderPeople(
+                  people,
+                  showMore ? people.length : initialPeopleCount
+                )}
+              </ul>
+              {people.length && (
+                <button className="show-more" onClick={handleShowMoreClick}>
+                  {showMore ? 'Show less' : 'Show more'}
+                </button>
+              )}
+            </div>
+          )}
+        </div>
+
+        <div className="content">
+          <p className="subtitle">year: </p>
+          <p className="description">
+            {new Date(created).toDateString().split(' ').slice(1).join(' ')}
+          </p>
+        </div>
       </div>
     </PageContent>
   );

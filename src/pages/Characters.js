@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import PageContent from '../components/PageContent';
 import Pagination from '../components/Pagination';
 import useFetch from '../hooks/fetchData';
 import Loader from '../components/Loader';
 import ErrorMessage from '../components/ErrorMessage';
+import SingleCharacter from '../components/SingleCharacter';
 
 const perPage = 10;
 
@@ -10,25 +12,53 @@ export default function Characters() {
   const [page, setPage] = useState(1);
   const { data, isLoading, error } = useFetch(`/people/?page=${page}`);
 
+  const [selectedCharacter, setSelectedCharacter] = useState('');
+
   const onPageChange = (currentPage) => {
     setPage(currentPage);
   };
 
+  const handleToggleSingleCharacter = (name) => {
+    setSelectedCharacter(name);
+  };
+
+  const onCloseSingleCharacter = () => {
+    setSelectedCharacter('');
+  };
   //console.log(data);
+
   if (isLoading) return <Loader />;
   if (error) return <ErrorMessage error={error.message} />;
 
   return (
-    <>
-      <ul>
-        {data.results.map(({ name }, idx) => (
-          <li key={idx}>{name}</li>
-        ))}
-      </ul>
+    <PageContent title={'All Star Wars Characters'}>
+      <div className="characters">
+        <ul className="characters__list">
+          {data.results.map(({ name, birth_year, url }, idx) => {
+            const characterId = url.match(/\d/)[0];
+
+            return (
+              <li key={idx} className="characters__list-item">
+                <p onClick={() => handleToggleSingleCharacter(name)}> {name}</p>{' '}
+                - born: {birth_year}
+                {/* TODO - add an icon for expanding */}
+                <div className="characters__list-item-details">
+                  {selectedCharacter === name && (
+                    <SingleCharacter
+                      onClose={onCloseSingleCharacter}
+                      id={characterId}
+                    />
+                  )}
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
 
       <div>
         {data.count > perPage && (
-          <div className="cocktails__list-pagination">
+          <div className="characters__list-pagination">
             <Pagination
               currentPage={page}
               perPage={perPage}
@@ -38,23 +68,6 @@ export default function Characters() {
           </div>
         )}
       </div>
-    </>
+    </PageContent>
   );
-}
-
-export async function loader() {
-  // // get random number in range 1 - 6 to get random film from starwars api (the api provides 6 films with ids - 1 to 6 )
-  // const id = Math.floor(Math.random() * (6 - 1) + 1);
-  // const res = await starwarsAPI.get(`/films/${id}`);
-  // // TODO - test when no internet connection
-  // if (res.status !== 200) {
-  //   throw json(
-  //     { message: 'Could not fetch Star War films.' },
-  //     {
-  //       status: 500,
-  //     }
-  //   );
-  // } else {
-  //   return res.data;
-  // }
 }

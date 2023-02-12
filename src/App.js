@@ -18,7 +18,6 @@ const router = createBrowserRouter([
       {
         path: 'characters',
         element: <CharactersRoot />,
-        //loader: charactersLoader,
         children: [
           { index: true, element: <Characters /> },
           { path: ':name', element: <Character /> },
