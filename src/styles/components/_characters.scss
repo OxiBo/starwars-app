@@ -1,9 +1,5 @@
-.character-bg {
-  background-color: rgba(0, 0, 0, 0.4);
-  padding: 2rem 3rem 3rem 3rem;
-}
-
 .characters {
+  min-height: 30rem;
   &__list {
     list-style: none;
     list-style: none;
@@ -11,18 +7,16 @@
       margin: 0 auto;
       display: flex;
       flex-direction: column;
-      width: 90%;
+      width: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      @include respond(tab-port) {
-        max-width: 70%;
-      }
+
       @include respond(tab-land) {
-        max-width: 60%;
+        max-width: 90%;
       }
       @include respond(desktop) {
-        max-width: 50%;
+        max-width: 80%;
       }
 
       &-description {
@@ -34,7 +28,6 @@
         //   cursor: pointer;
         // }
         &-name {
-          // flex: 0 50%;
           text-align: right;
           padding-right: 2rem;
           font-weight: 700;
@@ -44,17 +37,16 @@
             letter-spacing: 0.8px;
           }
         }
-        // &-born {
-        //   flex: 0 50%;
-        // }
       }
 
       &-details {
         display: flex;
         flex-direction: column;
-        width: 75%;
+        width: 100%;
         margin: 0 auto;
-
+        @include respond(tab-land) {
+          width: 90%;
+        }
         .character {
           &__details {
             &-name {
@@ -79,12 +71,17 @@
                   list-style: none;
                   display: flex;
                   flex-wrap: wrap;
+
                   &-item {
+                    font-style: italic;
                     &-link,
                     &-active,
                     &-visited {
                       text-decoration: none;
                       color: inherit;
+                      &:hover {
+                        letter-spacing: 0.4px;
+                      }
                     }
                   }
                 }

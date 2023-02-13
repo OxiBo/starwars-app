@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { getIdFromUrl } from '../utils/smallFuncs';
 
 export default function FilmsContent({ films }) {
   const renderFilms = (films) => {
     return films.map(({ title, director, release_date, url }, idx) => {
-      const filmId = url.match(/\d/)[0];
+      const filmId = getIdFromUrl(url);
 
       return (
         <li

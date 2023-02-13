@@ -1,6 +1,12 @@
-# Getting Started with Create React App
+# Description
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+You can clone the repository and install the dependencies by running 'npm run install'. 
+In the terminal use 'npm run start' in the root directory to start the project.
+
+The website provides 3 main routes: 
+/ - renders a random star wars film;
+/films - renders list of all star wars films where you can choose a particular film to see more details about it (including more details about each character from the film)
+/characters - renders all star wars characters with pagination functionality; choosing a particular character will show a window with more details about the chosen character
 
 ## Available Scripts
 

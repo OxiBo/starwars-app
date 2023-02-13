@@ -1,5 +1,5 @@
 .container {
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: $bg-color-opaque;
   padding: 3rem;
   &__header {
     text-align: center;
@@ -21,7 +21,6 @@
   display: flex;
   justify-content: space-between;
   .subtitle {
-    //font-weight: 900;
     font-weight: bold;
     font-style: italic;
     flex: 0 25%;
@@ -39,7 +38,6 @@
     display: flex;
     list-style: none;
     flex-wrap: wrap;
-    // justify-content: space-evenly;
     &-item {
       display: inline-flex;
       padding-right: 0.8rem;
@@ -49,6 +47,9 @@
         &:visited {
           color: inherit;
           text-decoration: none;
+          &:hover {
+            letter-spacing: 0.1px;
+          }
         }
       }
     }

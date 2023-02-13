@@ -22,7 +22,9 @@ export default function ErrorPage() {
     <>
       <MainNavigation />
       <PageContent title={title}>
-        <p>{message}</p>
+        <div className="error">
+          <p className="error-message">{message}</p>
+        </div>
       </PageContent>
     </>
   );

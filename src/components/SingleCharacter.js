@@ -8,19 +8,52 @@ export default function SingleCharacter({ id, expanded = false }) {
   const { data, isLoading, error } = useFetchCharacters(`/people/${id}`);
 
   if (isLoading) return <Loader />;
-  if (error) return <ErrorMessage error={error.message} />;
+  if (error)
+    return (
+      <ErrorMessage
+        error={error.message}
+        titleStyle={'error-header-small'}
+        textStyle={'error-text-small'}
+      />
+    );
 
   const renderDetails = (data) => {
     const {
+      name,
+      films,
+      homeworld,
+      mass,
       birth_year,
       eye_color,
       gender,
       hair_color,
-      name,
       skin_color,
-      homeworld,
-      films,
+      species,
+      vehicles,
+      starships,
+      created,
     } = data;
+    const renderList = (data, item) => (
+      <div className="character__details-item">
+        <h5 className="character__details-item-subtitle">{item}:</h5>
+        <div className="character__details-item-description">
+          <ul className="character__details-item-description-list">
+            {data.map(({ name, model }, idx) => {
+              return (
+                <li
+                  key={idx}
+                  className="character__details-item-description-list-item"
+                >
+                  <p className="character__details-item-description-list-item-link">
+                    {name}(model: {model}){data.length > idx + 1 && ','}
+                  </p>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
+    );
 
     const ifExists = (description) =>
       description !== 'unknown' && description !== 'n/a';
@@ -33,6 +66,12 @@ export default function SingleCharacter({ id, expanded = false }) {
             <hr className="style-two u-margin-bottom-small" />
           </div>
         )}
+        <div className="character__details-item">
+          <h5 className="character__details-item-subtitle">Created:</h5>
+          <p className="character__details-item-description">
+            {new Date(created).toDateString().split(' ').slice(1).join(' ')}
+          </p>
+        </div>
         {ifExists(birth_year) && (
           <div className="character__details-item">
             <h5 className="character__details-item-subtitle">Birth Year:</h5>
@@ -43,12 +82,41 @@ export default function SingleCharacter({ id, expanded = false }) {
           <h5 className="character__details-item-subtitle">Home World:</h5>
           <p className="character__details-item-description">{homeworld}</p>
         </div>
+
+        {species && (
+          <div className="character__details-item">
+            <h5 className="character__details-item-subtitle">Species:</h5>
+            <div className="character__details-item-description">
+              <ul className="character__details-item-description-list">
+                {species.map(({ classification, name, language }, idx) => {
+                  return (
+                    <li
+                      key={idx}
+                      className="character__details-item-description-list-item"
+                    >
+                      <p className="character__details-item-description-list-item-link">
+                        {name} (classification: {classification}
+                        {ifExists(language) && `, language(${language})`}
+                        {species.length > idx + 1 && ','})
+                      </p>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          </div>
+        )}
+
         {ifExists(gender) && (
           <div className="character__details-item">
             <h5 className="character__details-item-subtitle">Gender:</h5>
             <p className="character__details-item-description">{gender}</p>
           </div>
         )}
+        <div className="character__details-item">
+          <h5 className="character__details-item-subtitle">Mass:</h5>
+          <p className="character__details-item-description">{mass} kg</p>
+        </div>
         {ifExists(eye_color) && (
           <div className="character__details-item">
             <h5 className="character__details-item-subtitle">Eye color:</h5>
@@ -67,12 +135,16 @@ export default function SingleCharacter({ id, expanded = false }) {
             <p className="character__details-item-description">{skin_color}</p>
           </div>
         )}
+
+        {starships && renderList(starships, 'Starships')}
+
+        {vehicles && renderList(vehicles, 'Vehicles')}
+
         <div className="character__details-item">
           <h5 className="character__details-item-subtitle">Films:</h5>
           <div className="character__details-item-description">
             <ul className="character__details-item-description-list">
               {films.map(({ title, id }, idx) => {
-                console.log(films.length, idx);
                 return (
                   <li
                     key={idx}

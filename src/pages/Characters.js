@@ -1,3 +1,5 @@
+// TODO - add search functionality to find a character - https://swapi.dev/api/people/?name={someName}
+
 import React, { useState } from 'react';
 import PageContent from '../components/PageContent';
 import Pagination from '../components/Pagination';
@@ -5,6 +7,7 @@ import useFetch from '../hooks/fetchData';
 import Loader from '../components/Loader';
 import ErrorMessage from '../components/ErrorMessage';
 import SingleCharacter from '../components/SingleCharacter';
+import { getIdFromUrl } from '../utils/smallFuncs';
 
 const perPage = 10; // the number of characters returned by star wars api /people/?page=
 
@@ -34,8 +37,7 @@ export default function Characters() {
       <div className="characters u-margin-top-medium u-margin-bottom-medium">
         <ul className="characters__list">
           {data.results.map(({ name, url }, idx) => {
-            const characterId = url.match(/\d/)[0];
-
+            const characterId = getIdFromUrl(url);
             return (
               <li key={idx} className="characters__list-item">
                 <div className="characters__list-item-description u-margin-bottom-small">
@@ -51,7 +53,7 @@ export default function Characters() {
                   {selectedCharacter === name && (
                     <>
                       <SingleCharacter id={characterId} expanded={true} />
-                      <div className="characters__list-item-details-btn u-margin-top-small u-margin-bottom-small">
+                      <div className="characters__list-item-details-btn u-margin-top-tiny u-margin-bottom-tiny">
                         <button
                           onClick={onCloseSingleCharacter}
                           className="btn cancel"

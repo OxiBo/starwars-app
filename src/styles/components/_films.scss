@@ -24,7 +24,7 @@
         &:active,
         &:visited {
           text-decoration: none;
-          color: inherit;
+          color: $color-secondary-dark;
           &:hover {
             letter-spacing: 0.5px;
             text-shadow: 1px 1px 1px $color-primary;
@@ -34,7 +34,6 @@
 
       .film-content {
         display: flex;
-        // justify-content: space-between;
         .film-subtitle {
           //font-weight: 900;
           font-weight: bold;
@@ -46,6 +45,8 @@
         .film-description {
           text-align: justify;
           flex: 0 60%;
+          display: flex;
+          align-items: center;
         }
       }
     }

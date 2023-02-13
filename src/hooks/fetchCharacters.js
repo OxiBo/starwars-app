@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import starwarsAPI from '../api/starwarsAPI';
 import axios from 'axios';
+import { getIdFromUrl } from '../utils/smallFuncs';
 
 const fetchDetails = async (url) => {
   try {
@@ -17,7 +18,7 @@ const getDetailedInfo = async (list) => {
     const data = await fetchDetails(item);
     return data;
   });
-  const fetchedDetails = await Promise.all(promises);
+  const fetchedDetails = await Promise.all(promises); // TODO - filter and return error if any has error
   return fetchedDetails;
 };
 
@@ -34,27 +35,34 @@ const useFetchCharacters = (url) => {
         let character = {};
         const { data } = await starwarsAPI.get(url);
         const {
+          name,
           films,
           homeworld,
+          mass,
           birth_year,
           eye_color,
           gender,
           hair_color,
-          name,
           skin_color,
+          species,
+          vehicles,
+          starships,
+          created,
         } = data;
         character = {
           birth_year,
           eye_color,
           gender,
+          mass,
           hair_color,
           name,
           skin_color,
+          created,
         };
-        if (films) {
+        if (films.length) {
           const films = await getDetailedInfo(data.films);
           const filmsParsed = films.map(({ title, url }) => {
-            const id = url.match(/\d/)[0];
+            const id = getIdFromUrl(url);
             return { title, id };
           });
 
@@ -62,10 +70,37 @@ const useFetchCharacters = (url) => {
         }
 
         if (homeworld) {
-          const homeworld = await getDetailedInfo([data.homeworld]);
-          character.homeworld = homeworld[0].name || homeworld.error;
+          const homeworldDetails = await getDetailedInfo([homeworld]);
+          character.homeworld =
+            homeworldDetails[0].name || homeworldDetails.error;
         }
 
+        if (species.length) {
+          const speciesDetails = await getDetailedInfo(species);
+          const speciesParsed = speciesDetails.map(
+            ({ classification, name, language }) => {
+              return { classification, name, language };
+            }
+          );
+
+          character.species = speciesParsed;
+        }
+
+        if (vehicles.length) {
+          const vehiclesDetails = await getDetailedInfo(vehicles);
+          const vehiclesParsed = vehiclesDetails.map(({ name, model }) => {
+            return { name, model };
+          });
+          character.vehicles = vehiclesParsed;
+        }
+
+        if (starships.length) {
+          const starshipsDetails = await getDetailedInfo(starships);
+          const startshipsParsed = starshipsDetails.map(({ name, model }) => {
+            return { name, model };
+          });
+          character.starships = startshipsParsed;
+        }
         setData(character);
         setIsLoading(false);
       } catch (err) {

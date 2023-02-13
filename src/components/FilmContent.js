@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Loader from '../components/Loader';
 import ErrorMessage from '../components/ErrorMessage';
+import { getIdFromUrl } from '../utils/smallFuncs';
 
 const fetchPeople = async (url) => {
   try {
@@ -63,11 +64,11 @@ export default function FilmContent({
   if (isLoading) return <Loader />;
   if (error) return <ErrorMessage error={error.message} />;
 
-  const { title, director, planets, opening_crawl, characters, created } = data;
+  const { title, director, opening_crawl, created } = data;
 
   const renderPeople = (people, count) => {
     const peopleList = people.slice(0, count).map(({ name, url }, idx) => {
-      const characterId = url.match(/\d/)[0];
+      const characterId = getIdFromUrl(url);
       return (
         <li key={idx} className="list-content-items-item">
           <Link
@@ -117,13 +118,15 @@ export default function FilmContent({
                   showMore ? people.length : initialPeopleCount
                 )}
               </ul>
-              {people.length && (
+              {people.length ? (
                 <button
                   className="show-more u-margin-top-small u-margin-bottom-small"
                   onClick={handleShowMoreClick}
                 >
                   {showMore ? 'Show less' : 'Show more...'}
                 </button>
+              ) : (
+                <Loader />
               )}
             </div>
           )}

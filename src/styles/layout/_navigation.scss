@@ -5,7 +5,7 @@
   position: relative;
   &__logo {
     display: flex;
-    background-color: white;
+    background-color: $color-white;
     padding: 0 2rem;
 
     svg {
@@ -65,7 +65,7 @@
       align-items: center;
       width: 100%;
       &:has(a.active) {
-        background-color: #302b63;
+        background-color: $color-primary-dark-1;
       }
       &-link:link,
       &-link:visited,
@@ -80,13 +80,10 @@
         letter-spacing: 1px;
         padding: 1rem;
       }
-      // .active {
-      //   background-color: #302b63;
-      // }
     }
     &-item:hover {
       // TODO - add some other styling
-      background-color: #585488;
+      background-color: $color-primary-light-2;
     }
 
     &-open {
@@ -95,7 +92,7 @@
       position: absolute;
       top: 6.8rem;
       right: 0;
-      background-color: rgba(0, 0, 0, 0.3);
+      background-color: $bg-color-opaque;
     }
   }
 }

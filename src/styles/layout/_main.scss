@@ -27,3 +27,8 @@ main {
     );
   }
 }
+
+.bg-opaque {
+  background-color: $bg-color-opaque;
+  padding: 2rem 3rem 3rem 3rem;
+}

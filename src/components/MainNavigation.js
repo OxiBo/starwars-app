@@ -96,7 +96,7 @@ export default function MainNavigation() {
               `navbar__list-item-link ${isActive ? 'active' : undefined}`
             }
           >
-            Main
+            Home
           </NavLink>
         </li>
         <li onClick={handleMenuLinkClick} className="navbar__list-item">

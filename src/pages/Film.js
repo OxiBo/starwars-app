@@ -25,7 +25,11 @@ export default function FilmPage() {
       <Suspense fallback={<Loader />}>
         <Await resolve={films}>
           {(loadedFilms) => {
-            return <FilmsContent films={loadedFilms.results} />;
+            return (
+              <div className="bg-opaque">
+                <FilmsContent films={loadedFilms.results} />;
+              </div>
+            );
           }}
         </Await>
       </Suspense>
