@@ -1,5 +1,4 @@
 // NB - normally I would use some library like boot strap or MUI for handle collapsible menu but I wanted to demonstrate my skill to make it function from scratch
-// TODO - map over links
 // TODO - simplify responsive menu functioning
 import React, { useState, useRef, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
@@ -52,13 +51,14 @@ export default function MainNavigation() {
 
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  //   console.log(iconList(iconSet));
+
   const handleToggleMenu = () => {
     setOpenMenu((prev) => !prev);
   };
   const handleMenuLinkClick = () => {
     setOpenMenu(false);
   };
+
   return (
     <nav className="navbar">
       <div className="navbar__logo">

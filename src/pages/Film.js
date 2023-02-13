@@ -1,8 +1,9 @@
 import React, { Suspense } from 'react';
-import { useParams, useRouteLoaderData, Await, Link } from 'react-router-dom';
+import { useParams, useRouteLoaderData, Await } from 'react-router-dom';
 import FilmContent from '../components/FilmContent';
 import FilmsContent from '../components/FilmsContent';
 import Loader from '../components/Loader';
+import PageContent from '../components/PageContent';
 import useFetch from '../hooks/fetchData';
 
 export default function FilmPage() {
@@ -13,7 +14,14 @@ export default function FilmPage() {
 
   return (
     <>
-      <FilmContent data={data} isLoading={isLoading} error={error} />
+      <PageContent>
+        <FilmContent
+          data={data}
+          isLoading={isLoading}
+          error={error}
+          scroll={true}
+        />
+      </PageContent>
       <Suspense fallback={<Loader />}>
         <Await resolve={films}>
           {(loadedFilms) => {

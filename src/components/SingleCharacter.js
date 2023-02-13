@@ -4,7 +4,7 @@ import Loader from './Loader';
 import ErrorMessage from './ErrorMessage';
 import useFetchCharacters from '../hooks/fetchCharacters';
 
-export default function SingleCharacter({ onClose, id }) {
+export default function SingleCharacter({ id, expanded = false }) {
   const { data, isLoading, error } = useFetchCharacters(`/people/${id}`);
 
   if (isLoading) return <Loader />;
@@ -27,52 +27,69 @@ export default function SingleCharacter({ onClose, id }) {
 
     const content = (
       <>
-        <div className="character__details-item">
-          <h4>{name}</h4>
-        </div>
+        {!expanded && (
+          <div className="character__details-name  u-margin-top-small">
+            <h1 className="u-center-text">{name}</h1>
+            <hr className="style-two u-margin-bottom-small" />
+          </div>
+        )}
         {ifExists(birth_year) && (
           <div className="character__details-item">
-            <h5>Birth Year:</h5>
-            <p>{birth_year}</p>
+            <h5 className="character__details-item-subtitle">Birth Year:</h5>
+            <p className="character__details-item-description">{birth_year}</p>
           </div>
         )}
         <div className="character__details-item">
-          <h5>Home World:</h5>
-          <p>{homeworld}</p>
+          <h5 className="character__details-item-subtitle">Home World:</h5>
+          <p className="character__details-item-description">{homeworld}</p>
         </div>
         {ifExists(gender) && (
           <div className="character__details-item">
-            <h5>Gender:</h5>
-            <p>{gender}</p>
+            <h5 className="character__details-item-subtitle">Gender:</h5>
+            <p className="character__details-item-description">{gender}</p>
           </div>
         )}
         {ifExists(eye_color) && (
           <div className="character__details-item">
-            <h5>Eye color:</h5>
-            <p>{eye_color}</p>
+            <h5 className="character__details-item-subtitle">Eye color:</h5>
+            <p className="character__details-item-description">{eye_color}</p>
           </div>
         )}
         {ifExists(hair_color) && (
           <div className="character__details-item">
-            <h5>Hair color:</h5>
-            <p>{hair_color}</p>
+            <h5 className="character__details-item-subtitle">Hair color:</h5>
+            <p className="character__details-item-description">{hair_color}</p>
           </div>
         )}
         {ifExists(skin_color) && (
           <div className="character__details-item">
-            <h5>Skin color:</h5>
-            <p>{skin_color}</p>
+            <h5 className="character__details-item-subtitle">Skin color:</h5>
+            <p className="character__details-item-description">{skin_color}</p>
           </div>
         )}
         <div className="character__details-item">
-          <h5>Films:</h5>
-          <ul>
-            {films.map(({ title, id }, idx) => (
-              <li key={idx}>
-                <Link to={`/films/${id}`}>{title}</Link>
-              </li>
-            ))}
-          </ul>
+          <h5 className="character__details-item-subtitle">Films:</h5>
+          <div className="character__details-item-description">
+            <ul className="character__details-item-description-list">
+              {films.map(({ title, id }, idx) => {
+                console.log(films.length, idx);
+                return (
+                  <li
+                    key={idx}
+                    className="character__details-item-description-list-item"
+                  >
+                    <Link
+                      to={`/films/${id}`}
+                      className="character__details-item-description-list-item-link"
+                    >
+                      {title}
+                      {films.length > idx + 1 && ','}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </div>
       </>
     );
@@ -80,8 +97,9 @@ export default function SingleCharacter({ onClose, id }) {
   };
   return (
     <div className="character">
-      <div className="character__details">{data && renderDetails(data)}</div>
-      <button onClick={onClose}>close</button>
+      <div className="character__details u-margin-bottom-small">
+        {data && renderDetails(data)}
+      </div>
     </div>
   );
 }

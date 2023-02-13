@@ -3,7 +3,7 @@ import Root from './pages/Root';
 import ErrorPage from './pages/ErrorPage';
 import Home from './pages/Home';
 import CharactersRoot from './pages/CharactersRoot';
-import Characters, { loader as charactersLoader } from './pages/Characters';
+import Characters from './pages/Characters';
 import Character from './pages/Character';
 import FilmsRoot from './pages/FilmsRoot';
 import Films, { loader as filmsLoader } from './pages/Films';
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
         element: <CharactersRoot />,
         children: [
           { index: true, element: <Characters /> },
-          { path: ':name', element: <Character /> },
+          { path: ':id', element: <Character /> },
         ],
       },
       {

@@ -1,5 +1,6 @@
 .container {
-  //background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 3rem;
   &__header {
     text-align: center;
   }
@@ -20,6 +21,7 @@
   display: flex;
   justify-content: space-between;
   .subtitle {
+    //font-weight: 900;
     font-weight: bold;
     font-style: italic;
     flex: 0 25%;

@@ -1,17 +1,101 @@
+.character-bg {
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 2rem 3rem 3rem 3rem;
+}
+
 .characters {
-  background-color: rgba(222, 200, 200, 0.4);
   &__list {
     list-style: none;
+    list-style: none;
     &-item {
+      margin: 0 auto;
       display: flex;
       flex-direction: column;
+      width: 90%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      @include respond(tab-port) {
+        max-width: 70%;
+      }
+      @include respond(tab-land) {
+        max-width: 60%;
+      }
+      @include respond(desktop) {
+        max-width: 50%;
+      }
+
+      &-description {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // &:hover &-name {
+        //   letter-spacing: 0.8px;
+        //   cursor: pointer;
+        // }
+        &-name {
+          // flex: 0 50%;
+          text-align: right;
+          padding-right: 2rem;
+          font-weight: 700;
+          cursor: pointer;
+          font-size: 2rem;
+          &:hover {
+            letter-spacing: 0.8px;
+          }
+        }
+        // &-born {
+        //   flex: 0 50%;
+        // }
+      }
+
       &-details {
         display: flex;
-        opacity: 1;
-        //  @include slideInFromSide;
+        flex-direction: column;
+        width: 75%;
+        margin: 0 auto;
+
         .character {
-          background-color: mistyrose;
-          opacity: 1;
+          &__details {
+            &-name {
+              text-align: center;
+              h4 {
+                font-size: 2rem;
+              }
+            }
+            &-item {
+              display: flex;
+
+              &-subtitle {
+                flex: 0 50%;
+                font-size: 1.5rem;
+                font-weight: 600;
+                text-align: right;
+                padding-right: 2rem;
+              }
+              &-description {
+                flex: 0 50%;
+                &-list {
+                  list-style: none;
+                  display: flex;
+                  flex-wrap: wrap;
+                  &-item {
+                    &-link,
+                    &-active,
+                    &-visited {
+                      text-decoration: none;
+                      color: inherit;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+        &-btn {
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
       }
     }

@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import starwarsAPI from '../api/starwarsAPI';
 import axios from 'axios';
 

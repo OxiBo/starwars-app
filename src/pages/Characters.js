@@ -6,7 +6,7 @@ import Loader from '../components/Loader';
 import ErrorMessage from '../components/ErrorMessage';
 import SingleCharacter from '../components/SingleCharacter';
 
-const perPage = 10;
+const perPage = 10; // the number of characters returned by star wars api /people/?page=
 
 export default function Characters() {
   const [page, setPage] = useState(1);
@@ -25,38 +25,51 @@ export default function Characters() {
   const onCloseSingleCharacter = () => {
     setSelectedCharacter('');
   };
-  //console.log(data);
 
   if (isLoading) return <Loader />;
   if (error) return <ErrorMessage error={error.message} />;
 
   return (
     <PageContent title={'All Star Wars Characters'}>
-      <div className="characters">
+      <div className="characters u-margin-top-medium u-margin-bottom-medium">
         <ul className="characters__list">
-          {data.results.map(({ name, birth_year, url }, idx) => {
+          {data.results.map(({ name, url }, idx) => {
             const characterId = url.match(/\d/)[0];
 
             return (
               <li key={idx} className="characters__list-item">
-                <p onClick={() => handleToggleSingleCharacter(name)}> {name}</p>{' '}
-                - born: {birth_year}
-                {/* TODO - add an icon for expanding */}
-                <div className="characters__list-item-details">
+                <div className="characters__list-item-description u-margin-bottom-small">
+                  <p
+                    onClick={() => handleToggleSingleCharacter(name)}
+                    className="characters__list-item-description-name"
+                  >
+                    {name}
+                  </p>
+                </div>
+
+                <div className="characters__list-item-details u-margin-top">
                   {selectedCharacter === name && (
-                    <SingleCharacter
-                      onClose={onCloseSingleCharacter}
-                      id={characterId}
-                    />
+                    <>
+                      <SingleCharacter id={characterId} expanded={true} />
+                      <div className="characters__list-item-details-btn u-margin-top-small u-margin-bottom-small">
+                        <button
+                          onClick={onCloseSingleCharacter}
+                          className="btn cancel"
+                        >
+                          cancel
+                        </button>
+                      </div>
+                    </>
                   )}
                 </div>
+                <hr className="style-one u-margin-bottom-small" />
               </li>
             );
           })}
         </ul>
       </div>
 
-      <div>
+      <>
         {data.count > perPage && (
           <div className="characters__list-pagination">
             <Pagination
@@ -67,7 +80,7 @@ export default function Characters() {
             />
           </div>
         )}
-      </div>
+      </>
     </PageContent>
   );
 }

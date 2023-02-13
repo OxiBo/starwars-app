@@ -26,13 +26,18 @@ html {
 
 body {
   box-sizing: border-box;
+  // background-attachment: fixed;
   background-image: linear-gradient(
     to right,
     $color-primary-dark,
     #302b63,
     #24243e
   );
-
+  background-image: url('../images/night-sky-1.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  // background-repeat: no-repeat;
   font-size: $default-font-size;
   // @include respond(tab-port) {
   //   padding: 0;

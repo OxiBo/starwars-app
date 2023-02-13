@@ -1,32 +1,19 @@
-// @import "abstracts/functions";
 @import 'styles/abstracts/mixins';
 @import 'styles/abstracts/variables';
-
-// @import "base/animations";
 @import 'styles/base/base';
 @import 'styles/base/typography';
-// @import "base/utilities";
+@import 'styles/base/utilities';
 
 @import 'styles/components/spinner';
 @import 'styles/components/error';
 @import 'styles/components/buttons';
 @import 'styles/components/characters';
 @import 'styles/components/page-content';
-// @import "components/bg-video";
-// @import "components/button";
-// @import "components/card";
-// @import "components/composition";
-// @import "components/feature-box";
-// @import "components/form";
-// @import "components/popup";
-// @import "components/story";
+@import 'styles/components/film';
+@import 'styles/components/films';
+@import 'styles/components/pagination';
 
-// @import "layout/footer";
-// @import "layout/grid";
-// @import "layout/header";
 @import 'styles/layout/navigation';
 
 @import 'styles/layout/main';
 @import 'styles/layout/footer';
-
-// @import "pages/home";

@@ -54,6 +54,7 @@
     list-style: none;
     justify-content: space-around;
     align-items: center;
+
     @include respond(phone) {
       display: flex;
     }
@@ -63,6 +64,9 @@
       justify-content: center;
       align-items: center;
       width: 100%;
+      &:has(a.active) {
+        background-color: #302b63;
+      }
       &-link:link,
       &-link:visited,
       &-link:active {
@@ -76,22 +80,22 @@
         letter-spacing: 1px;
         padding: 1rem;
       }
-      .active {
-        background-color: #b7b3e4;
-      }
+      // .active {
+      //   background-color: #302b63;
+      // }
     }
     &-item:hover {
       // TODO - add some other styling
-      background-color: #302b63;
+      background-color: #585488;
     }
 
     &-open {
       display: flex;
       flex-direction: column;
       position: absolute;
-      background-color: $color-black;
       top: 6.8rem;
       right: 0;
+      background-color: rgba(0, 0, 0, 0.3);
     }
   }
 }

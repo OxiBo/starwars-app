@@ -7,27 +7,35 @@ export default function FilmsContent({ films }) {
       const filmId = url.match(/\d/)[0];
 
       return (
-        <li key={idx}>
-          <Link to={`/films/${filmId}`}>
+        <li
+          key={idx}
+          className="films__list-item u-center-text u-margin-top-small u-margin-bottom-small"
+        >
+          <Link to={`/films/${filmId}`} className="films__list-item-link">
             <h3>{title}</h3>
           </Link>
-
-          <p>director: {director}</p>
-          <p>
-            release date:{' '}
-            {new Date(release_date)
-              .toDateString()
-              .split(' ')
-              .slice(1)
-              .join(' ')}
-          </p>
+          <div className="film-content">
+            <p className="film-subtitle">Director:</p>{' '}
+            <p className="film-description">{director}</p>
+          </div>
+          <div className="film-content">
+            <p className="film-subtitle">Release date: </p>
+            <p className="film-description">
+              {new Date(release_date)
+                .toDateString()
+                .split(' ')
+                .slice(1)
+                .join(' ')}
+            </p>
+          </div>
+          <hr className="style-one u-margin-top-small" />
         </li>
       );
     });
   };
   return (
-    <div>
-      <ul>{renderFilms(films)}</ul>
+    <div className="films u-margin-top-medium u-margin-bottom-big">
+      <ul className="films__list">{renderFilms(films)}</ul>
     </div>
   );
 }

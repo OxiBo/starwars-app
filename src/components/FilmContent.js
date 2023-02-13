@@ -1,9 +1,6 @@
-// TODO - show loading when people are loading
-
 import React, { useEffect, useState, useCallback, useRef } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import PageContent from '../components/PageContent';
 import Loader from '../components/Loader';
 import ErrorMessage from '../components/ErrorMessage';
 
@@ -18,7 +15,12 @@ const fetchPeople = async (url) => {
 };
 const initialPeopleCount = 3;
 
-export default function FilmContent({ data, isLoading, error }) {
+export default function FilmContent({
+  data,
+  isLoading,
+  error,
+  scroll = false,
+}) {
   const [people, setPeople] = useState([]);
   const [peopleError, setPeopleError] = useState(null);
   const [showMore, setShowMore] = useState(false);
@@ -50,13 +52,13 @@ export default function FilmContent({ data, isLoading, error }) {
   }, [data, getPeopleInfo]);
 
   useEffect(() => {
-    if (mainContent.current) {
+    if (mainContent.current && scroll) {
       mainContent.current.scrollIntoView({
         behavior: 'smooth',
-        block: 'center',
+        block: 'start',
       });
     }
-  }, [mainContent, data]);
+  }, [mainContent, data, scroll]);
 
   if (isLoading) return <Loader />;
   if (error) return <ErrorMessage error={error.message} />;
@@ -64,16 +66,20 @@ export default function FilmContent({ data, isLoading, error }) {
   const { title, director, planets, opening_crawl, characters, created } = data;
 
   const renderPeople = (people, count) => {
-    const peopleList = people.slice(0, count).map(({ name }, idx) => (
-      <li key={idx} className="list-content-items-item">
-        <Link
-          to={`/characters/${name}`}
-          className="list-content-items-item-link"
-        >
-          {name},
-        </Link>
-      </li>
-    ));
+    const peopleList = people.slice(0, count).map(({ name, url }, idx) => {
+      const characterId = url.match(/\d/)[0];
+      return (
+        <li key={idx} className="list-content-items-item">
+          <Link
+            to={`/characters/${characterId}`}
+            className="list-content-items-item-link"
+          >
+            {name}
+            {people.length > idx + 1 && ','}
+          </Link>
+        </li>
+      );
+    });
     return peopleList;
   };
 
@@ -85,18 +91,21 @@ export default function FilmContent({ data, isLoading, error }) {
     setPeopleLoaded(true);
   };
   return (
-    <PageContent title={title}>
-      <div ref={mainContent}>
-        <div className="content">
+    <div ref={mainContent} className="film  u-margin-bottom-medium">
+      <h2 className="film__header u-center-text u-margin-top-medium u-margin-bottom-medium">
+        {title}
+      </h2>
+      <div>
+        <div className="content u-margin-top-small">
           <p className="subtitle">Synopsis:</p>
           <p className="description">{opening_crawl}</p>
         </div>
-        <div className="content">
+        <div className="content u-margin-top-small">
           <p className="subtitle"> Director: </p>
           <p className="description"> {director}</p>
         </div>
 
-        <div className="content">
+        <div className="content u-margin-top-small">
           <p className="subtitle"> People:</p>
           {peopleError ? (
             <p className="text-error">Failed to fetch characters info</p>
@@ -109,8 +118,11 @@ export default function FilmContent({ data, isLoading, error }) {
                 )}
               </ul>
               {people.length && (
-                <button className="show-more" onClick={handleShowMoreClick}>
-                  {showMore ? 'Show less' : 'Show more'}
+                <button
+                  className="show-more u-margin-top-small u-margin-bottom-small"
+                  onClick={handleShowMoreClick}
+                >
+                  {showMore ? 'Show less' : 'Show more...'}
                 </button>
               )}
             </div>
@@ -118,12 +130,12 @@ export default function FilmContent({ data, isLoading, error }) {
         </div>
 
         <div className="content">
-          <p className="subtitle">year: </p>
+          <p className="subtitle">Year: </p>
           <p className="description">
             {new Date(created).toDateString().split(' ').slice(1).join(' ')}
           </p>
         </div>
       </div>
-    </PageContent>
+    </div>
   );
 }
