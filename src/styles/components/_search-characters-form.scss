@@ -1,0 +1,89 @@
+.search-characters {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 2rem 3rem 3rem 3rem;
+  margin: 0 auto;
+  max-width: 90%;
+  display: flex;
+  align-items: center;
+  @include respond(tab-port) {
+    max-width: 80%;
+  }
+  @include respond(tab-land) {
+    max-width: 70%;
+  }
+  @include respond(desktop) {
+    max-width: 60%;
+  }
+
+  &__form {
+    display: flex;
+    flex: 1;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    @include respond(tab-port) {
+      flex-direction: row;
+    }
+    @include respond(big-desktop) {
+      justify-content: center;
+    }
+    &-input::placeholder {
+      color: $color-white;
+    }
+    label {
+      margin-bottom: 2.5rem;
+      @include respond(tab-port) {
+        margin-bottom: 0;
+      }
+      @include respond(big-desktop) {
+        margin-right: 4rem;
+      }
+    }
+
+    &-input,
+    &-input:focus {
+      height: 3rem;
+      border: none;
+      flex: 1;
+      outline: none;
+      width: 70%;
+      background-color: lighten($color-primary-light-2, 20%);
+      color: $color-white;
+      letter-spacing: 1px;
+      font-size: 1rem;
+      padding: 1rem;
+      box-shadow: inset 0px 0px 16px 12px rgba(0, 0, 0, 0.27);
+      margin: 0 auto 2.5rem auto;
+
+      @include respond(tab-port) {
+        margin-bottom: 0;
+        margin-left: 2rem;
+        width: 70%;
+      }
+      @include respond(big-desktop) {
+        margin: 0 4rem 0 0;
+        max-width: 30%;
+      }
+    }
+
+    &-error {
+      position: absolute;
+      top: 9rem;
+      left: 9rem;
+      //width: 20rem;
+      max-width: 70%;
+      @include respond(tab-port) {
+        top: 4rem;
+        left: 18rem;
+        //width: 20rem;
+        max-width: 50%;
+      }
+      &-message {
+        color: $color-error;
+        font-style: italic;
+        font-size: 1.2rem;
+      }
+    }
+  }
+}

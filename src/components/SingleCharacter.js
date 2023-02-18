@@ -78,10 +78,12 @@ export default function SingleCharacter({ id, expanded = false }) {
             <p className="character__details-item-description">{birth_year}</p>
           </div>
         )}
-        <div className="character__details-item">
-          <h5 className="character__details-item-subtitle">Home World:</h5>
-          <p className="character__details-item-description">{homeworld}</p>
-        </div>
+        {ifExists(homeworld) && (
+          <div className="character__details-item">
+            <h5 className="character__details-item-subtitle">Home World:</h5>
+            <p className="character__details-item-description">{homeworld}</p>
+          </div>
+        )}
 
         {species && (
           <div className="character__details-item">
@@ -113,10 +115,13 @@ export default function SingleCharacter({ id, expanded = false }) {
             <p className="character__details-item-description">{gender}</p>
           </div>
         )}
-        <div className="character__details-item">
-          <h5 className="character__details-item-subtitle">Mass:</h5>
-          <p className="character__details-item-description">{mass} kg</p>
-        </div>
+        {ifExists(mass) && (
+          <div className="character__details-item">
+            <h5 className="character__details-item-subtitle">Mass:</h5>
+            <p className="character__details-item-description">{mass} kg</p>
+          </div>
+        )}
+
         {ifExists(eye_color) && (
           <div className="character__details-item">
             <h5 className="character__details-item-subtitle">Eye color:</h5>

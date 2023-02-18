@@ -34,6 +34,7 @@ const useFetchCharacters = (url) => {
       try {
         let character = {};
         const { data } = await starwarsAPI.get(url);
+
         const {
           name,
           films,

@@ -2,7 +2,9 @@ function PageContent({ title, children, className }) {
   return (
     <div
       className={`${
-        className ? '' : 'container u-margin-top-small u-margin-bottom-big'
+        className
+          ? ''
+          : 'container u-margin-top-small u-margin-bottom-big bg-opaque'
       }`}
     >
       <h1 className={`container__header ${className}`}>{title}</h1>
